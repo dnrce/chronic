@@ -12,9 +12,10 @@ module Chronic
 
     # returns a hash of each word's Definitions
     def definitions
-      defined_items.each_with_object({}) do |word, defs|
-        word_type = "#{word.capitalize.to_s + 'Definitions'}"
+      defined_items.reduce({}) do |defs, word|
+        word_type = "#{word.to_s.capitalize + 'Definitions'}"
         defs[word] = Chronic.const_get(word_type).new(options).definitions
+        defs
       end
     end
   end
